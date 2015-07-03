@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GuessWho.Models.Character>
+@{
+    ViewBag.Title = "Home Page";
+    int count = 0;
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function(){            
+            $('.characterImage').on('click', function (e) {
+                if (parseFloat($(this).css('opacity')).toFixed(1) == 0.3)
+                    $(this).css('opacity', '1')
+                else
+                    $(this).css('opacity','0.3')
+            })
+        })
+    </script>
+}
+<div class="container">            
+    <div class="col-md-3">
+        <a href="http://www.twilio.com"><img src="../../Content/Images/logos_icon_round.png" /></a><span class="who">Who?</span>
+        <blockquote class="instructions">
+            <p>Send a text with the word "Play" followed by your name to +44(0)2380 000203.</p>
+        </blockquote>
+        <p>here is a list of questions you can text:</p>
+        <ul>
+            <li>Male</li>
+            <li>Female</li>
+            <li>Bald</li>
+            <li>Beard</li>
+            <li>Moustache</li>
+            <li>Glasses</li>
+            <li>Hat</li>
+            <li>Hair Brown/Black/Ginger/Blonde</li>
+            <li>Eyes Brown/Blue</li>
+            <li>Is it <i>Name</i></li>
+        </ul>
+        <p><a href="http://www.pickaface.net"><img src="~/Content/Images/pickaface.png" height="100"></a></p>
+    </div>
+    <div class="col-md-9">        
+        <p class="text-center lead">Click on the characters below to help you remember who you have eliminated.</p>
+        @for (var i = 0; i < 4; i++)
+        {
+            <text>
+                <div class="row">
+                    @for (var j = 0; j < 6; j++)
+                    {
+                        <text>
+                            <div class="col-md-2">
+                                <div class="row text-center">
+                                    <img class="characterImage" height="95" width="95" src="/Home/Mugshot?Name=@Html.Raw(Model.ElementAt(count).RowKey)" />
+                                </div>
+                                <div class="row text-center">
+                                    @Html.DisplayFor(m => m.ElementAt(count).RowKey)
+                                </div>
+                            </div>
+                        </text>
+                        count = count + 1;
+                    }
+                </div>
+            </text>
+        }
+    </div>
+</div>
